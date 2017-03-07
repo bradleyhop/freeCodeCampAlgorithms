@@ -16,19 +16,25 @@
  */
 
 function palindrome(str) {
-	// first, strip nonword chars, whitespace, and to all lower case
-	// Then, reverse string.
-	var test =
-		str.toLowerCase().replace(/[\W_]+/g, "").split('').reverse('').join('');
+    // first, strip nonword chars, whitespace, and to all lower case
+    // Then, reverse string.
+    var test =
+        str.toLowerCase().replace(/[\W_]+/g, "").split('').reverse('').join('');
 
-	// Take original string and strip nonword chars, whitespace, lower case.
-	str = str.toLowerCase().replace(/[\W_]+/g, "");
+    // Take original string and strip nonword chars, whitespace, lower case.
+    str = str.toLowerCase().replace(/[\W_]+/g, "");
 
-	if (str === test) {
-	  return true;
-	} else {
-	  return false; }
+    if (str === test) {
+      return true;
+    } else {
+      return false; }
 }
 
 console.log(palindrome("eye"));
+// true
+console.log(palindrome("Race car"));
+// true
+console.log(palindrome("trogdor"));
+// false, though still awesome
+console.log(palindrome("2A3*3a2"));
 // true

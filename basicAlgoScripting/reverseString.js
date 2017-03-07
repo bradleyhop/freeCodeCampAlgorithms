@@ -7,10 +7,10 @@
  */
 
 function reverseString(str) {
-	var tmpArray = [];
-	tmpArray = str.split('');
-	tmpArray.reverse('');
-	return tmpArray.join('');
+    var tmpArray = [];
+    tmpArray = str.split('');
+    tmpArray.reverse('');
+    return tmpArray.join('');
 }
 
 console.log(reverseString("hello"));
