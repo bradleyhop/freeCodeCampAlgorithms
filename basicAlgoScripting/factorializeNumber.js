@@ -9,12 +9,12 @@
  */
 
 function factorialize(num) {
-  var limit = num;
-  num = 1;
-  for (var i = 1; i <= limit; i++) {
+    var limit = num;
+    num = 1;
+    for (var i = 1; i <= limit; i++) {
     num *= i;
-  }
-  return num;
+    }
+    return num;
 }
 
 console.log(factorialize(5));
