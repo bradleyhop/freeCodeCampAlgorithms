@@ -1,5 +1,0 @@
-This repository will keep the answers to the fCC algorithm problems I have
-finished.
-
-The problems are grouped by difficulty level, as determined by fCC, in their
-own directories.
