@@ -16,7 +16,6 @@ function algoScript(variable) {
 
 console.log(algoScript("test"));
 // a couple of calls to function with each call's result in a comment directly below
-console.log(algoScript("test1"));
 // not all test cases used by freeCodeCamp are in the files; just enough to get the gist
 ```
 
