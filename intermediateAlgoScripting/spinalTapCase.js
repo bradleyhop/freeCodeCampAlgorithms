@@ -4,14 +4,17 @@
  */
 
 function spinalCase(str) {
-    // a regex returns an array when a match is found:
+    var caseAndSpace = /[A-Z]| [a-z]/g;
+    var spaceUnderscoreKiller = / |_/g;
+
+    // a regex returns an array/object when a match is found:
     //  the match itself, last index of occurance, and the original string
     //  We can use this array in replace()
-    str = str.replace(/[A-Z]| [a-z]/g, function(match, offset) {
+    str = str.replace(caseAndSpace, function(match, offset) {
         return (offset ? '-' : '') + match.toLowerCase();
     });
 
-    return str.replace(/ |_/g, "");
+    return str.replace(spaceUnderscoreKiller, "");
 }
 
 console.log(spinalCase("This Is Spinal Tap"));
