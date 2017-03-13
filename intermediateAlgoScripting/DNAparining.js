@@ -15,11 +15,12 @@
  */
 
 function pairElement(str) {
-    var temp = str.split("");
     var newar = [];
 
-    for (i = 0; i < temp.length; i++) {
-        switch (temp[i]) {
+    str.split("");
+
+    for (i = 0; i < str.length; i++) {
+        switch (str[i]) {
             case 'G':
                 newar.push(['G', 'C']);
                 break;
