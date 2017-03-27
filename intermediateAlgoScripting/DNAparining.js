@@ -19,7 +19,7 @@ function pairElement(str) {
 
     str.split("");
 
-    for (i = 0; i < str.length; i++) {
+    for (var i = 0; i < str.length; i++) {
         switch (str[i]) {
             case 'G':
                 newar.push(['G', 'C']);
