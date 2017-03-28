@@ -14,6 +14,8 @@
 
 function whatIsInAName(collection, source) {
     var arr = [];
+    // Oject.keys() returns an array of the enumerable properties of the
+    //  "source" object
     var sprop = Object.keys(source);
     var isIn = false;
 
