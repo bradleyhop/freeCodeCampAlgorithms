@@ -4,14 +4,17 @@
  *All roman numerals answers should be provided in upper-case.
  */
 
+// Global array with the roman numerals ordered greatest to least.
+// Because I never learned roman numerals, a key for me:
+// [1000, 500, 100, 50, 10, 5, 1]
+var roman = ["M", "D", "C", "L", "X", "V", "I"];
+
 function convertToRoman(num) {
+    // there's limits to this converter
+    if (num > 9999 || num <= 0 || typeof num !== 'number')
+        return undefined;
+
     var romNumeral = "";
-    var shrinkingNum = num;
-
-    // roman numerals in an array
-    var roman = ["M", "D", "C", "L", "X", "V", "I"];
-    var arabic =[1000, 500, 100, 50, 10, 5, 1];
-
 
     // thousands place
     if (parseInt(num/1000) !== 0) {
@@ -25,63 +28,57 @@ function convertToRoman(num) {
     if (parseInt(num/100) !== 0) {
         var hundreds = parseInt(num/100);
         num -= (hundreds * 100);
-        switch (hundreds) {
-            case 9:
-                romNumeral += "CM";
-                break;
-            case 4:
-                romNumeral += "CD";
-                break;
-            default:
-                if (hundreds >= 5) {
-                    romNumeral += "D";
-                    hundreds -= 5;
-                }
-                for (var j = 0; j < hundreds; j++) {
-                    romNumeral += "C";
-                }
-        }
+        romNumeral += parseRoman("hundreds", hundreds);
     }
+
     // tens
     if (parseInt(num/10) !== 0) {
         var tens = parseInt(num/10);
         num -= tens * 10;
-        switch (tens) {
-            case 9:
-                romNumeral += "XC";
-                break;
-            case 4:
-                romNumeral += "XL";
-                break;
-            default:
-                if (tens >= 5) {
-                    romNumeral += "L";
-                    tens -= 5;
-                }
-                for (var k = 0; k < tens; k++) {
-                    romNumeral += "X";
-                }
-        }
-    }
-    // singles
-    switch (num) {
-        case 9:
-            romNumeral += "IX";
-            break;
-        case 4:
-            romNumeral += "IV";
-            break;
-        default:
-            if (num >= 5) {
-                romNumeral += "V";
-                num -= 5;
-            }
-            for (var l = 0; l < num; l++) {
-                romNumeral +="I";
-            }
+        romNumeral += parseRoman("tens", tens);
     }
 
+    // singles
+    romNumeral += parseRoman("single", num);
+
     return romNumeral;
+}
+
+// helper function for convertToRoman
+// Take in the place holder we're working on, and its value (as a single digit)
+// return a string with that place's roman numeral string
+function parseRoman(placeHolder, value) {
+    var romKey = {
+        "hundreds" :  2,
+        "tens" :      4,
+        "single" :    6
+    };
+    var stringRoman = "";
+
+    // using a temp variable to get the roman numeral that is in relation
+    //  to our place's index (can't do maths inside an array reference)
+    switch (value) {
+        case 9:
+            var nine = romKey[placeHolder] - 2;
+            stringRoman += roman[romKey[placeHolder]] +
+                roman[nine];
+            break;
+        case 4:
+            var four = romKey[placeHolder] - 1;
+            stringRoman += roman[romKey[placeHolder]] +
+                roman[four];
+            break;
+        default:
+            if (value >= 5) {
+                var five = romKey[placeHolder] - 1;
+                stringRoman += roman[five];
+                value -= 5;
+            }
+            for (var j = 0; j < value; j++) {
+                stringRoman += roman[romKey[placeHolder]];
+            }
+    }
+    return stringRoman;
 }
 
 console.log(convertToRoman(2));
