@@ -20,4 +20,6 @@ function sumAll(arr) {
 console.log(sumAll([1, 4]));
 // 10
 console.log(sumAll([5, 10]));
-// should be 45, getting 30
+// 45
+console.log(sumAll([10, 5]));
+// 45
