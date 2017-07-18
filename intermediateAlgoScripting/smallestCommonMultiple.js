@@ -14,7 +14,7 @@
 function smallestCommons(arr) {
 
     // Can't assume that the array given is ascending order, but I guess we can
-    //  assum that the array is only 2 length
+    //  assume that the array is only 2 length
     if (arr[0] > arr[1])
         arr = arr.reverse();
 
@@ -22,12 +22,12 @@ function smallestCommons(arr) {
     var test = arr[1] * arr[0];
     var foundIt = false;
 
-    // This loop is dangerous. Given a large enough numbers, this will crash JS
-    // However, no floor or ceiling is stated in the problem.
-    while (!foundIt) {
+    // fCC warns of nonterminal loop, but checking to see that we don't
+    //  go beyond javascript's limit for integers
+    do {
         foundIt = isMultiple(arr[0], arr[1], test);
         test++;
-    }
+    } while (!foundIt && test < Number.MAX_SAFE_INTEGER);
 
     return test - 1;
 }
