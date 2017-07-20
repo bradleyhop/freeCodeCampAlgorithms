@@ -19,6 +19,7 @@
  */
 
 /*
+ * TODO:
  **from highest, check if bigger than returnCash (change to be given back)
  **check if highest has the funds in the demonination to give
  **if so, divide returnCash by denomination; check to see if denomination
@@ -55,42 +56,44 @@ function checkCashRegister(price, cash, cid) {
         totalCash += (cid[i][1]) * 100;
     }
 
-    console.log("total cash: " + totalCash + " return cash: " + returnCash);
-
-    while (totalCash > 0) {
-        for (var j = 0; j < cashValue.length; j++) {
-            while (cashValue[j] > totalCash && cid[j][1] > 0) {
-                totalCash -= cashValue[j];
-                change += []; // add property name here
-                // also need to add the amount of the money value here
-            }
-        }
-    }
-
-    // change should be an array b/c we have to give change in what is
-    //  actually in the drawer
+    // check first for insufficient and even funds
     if (totalCash < returnCash) {
         console.log(totalCash + " " + returnCash);
         return "Insufficient Funds";
     } else if (totalCash === returnCash) {
         return "Closed";
-    } else {
-        return change;
     }
+
+/*
+ *    console.log("total cash: " + totalCash + " return cash: " + returnCash);
+ *
+ *    while (totalCash > 0) {
+ *        for (var j = 0; j < cashValue.length; j++) {
+ *            while (cashValue[j] > totalCash && cid[j][1] > 0) {
+ *                totalCash -= cashValue[j];
+ *                change += []; // add property name here
+ *                // also need to add the amount of the money value here
+ *            }
+ *        }
+ *    }
+ */
+
+    // change should be an array b/c we have to give change in what is
+    //  actually in the drawer
 
 }
 
 
-//console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05],
-    //["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00],
-    //["TEN",20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
+console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05],
+    ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00],
+    ["TEN",20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
 // Should return [["QUARTER", 0.50]]
 
-console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+//console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 // Insufficient Funds
 
-console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+//console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 // Closed
 
-console.log(checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
+//console.log(checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
 // Should return: [["TWENTY", 60.00], ["TEN", 20.00], ["FIVE", 15.00], ["ONE", 1.00], ["QUARTER", 0.50], ["DIME", 0.20], ["PENNY", 0.04]]
