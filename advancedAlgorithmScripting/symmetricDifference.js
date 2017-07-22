@@ -11,13 +11,29 @@
  */
 
 function sym(args) {
-    return [...arguments].reduce(function(a, b) {
-            for (let i = 0; i < a.length; i++) {
-                if (b.indexOf(a[i]) === -1)
-                    return a[i];
-            }
-        });
+    let arrs = [...arguments];
+    var allNums = [];
+
+    // populate an array with every number in all arrays
+    arrs.forEach( (a) => {
+        for (let i = 0; i < a.length; i++) {
+            if (allNums.indexOf(a[i]) === -1)
+                allNums.push(a[i]);
+        }
+    });
+    console.log(allNums);
+
+    // test argument arrays agains full array
+
+    return allNums.reduce( function(a) {
+        for (let i = 0; i < arrs.length; i++) {
+            let temp = allNums.indexOf(arrs[i]);
+            allNums.filter( e => e === temp );
+        }
+    });
 }
 
 console.log(sym([1,2,3], [5,2,1,4]));
 // 3, 4, 5
+
+console.log(sym([1,2,3,4],[3,1,5,6]));
