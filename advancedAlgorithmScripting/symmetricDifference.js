@@ -24,16 +24,24 @@ function sym(args) {
     console.log(allNums);
 
     // test argument arrays agains full array
+    for (let i = 1; i < arrs.length; i++) {
+        arrs[i].forEach( (curr) => {
+            console.log(curr);
+            let index = allNums.indexOf(curr);
+            console.log(index);
+            if (index !== -1) {
+                allNums.splice(index, 1);
+            }
+        } );
 
-    return allNums.reduce( function(a) {
-        for (let i = 0; i < arrs.length; i++) {
-            let temp = allNums.indexOf(arrs[i]);
-            allNums.filter( e => e === temp );
-        }
-    });
+    }
+
+    return allNums;
+
 }
 
 console.log(sym([1,2,3], [5,2,1,4]));
 // 3, 4, 5
 
 console.log(sym([1,2,3,4],[3,1,5,6]));
+// 2, 4, 5, 6
