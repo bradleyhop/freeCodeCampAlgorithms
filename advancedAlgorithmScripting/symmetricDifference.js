@@ -16,13 +16,8 @@ function sym(args) {
 
     for (let i = 1; i < arrs.length; i++) {
 
-        //remove duplicates in sub-array
-        let tmpArr = arrs[i].filter( (item, pos) => {
-            return arrs[i].indexOf(item) == pos;
-        });
-
         // test for differences, update base set
-        tmpArr.forEach( (curr) => {
+        eliminateDupes(arrs[i]).forEach( (curr) => {
             let index = baseSet.indexOf(curr);
             if (index !== -1) {
                 baseSet.splice(index, 1);
@@ -32,12 +27,15 @@ function sym(args) {
         });
     }
 
-     // for removing duplicates in sym diff set
-    let symDiff = baseSet.filter( (item, pos) => {
-        return baseSet.indexOf(item) == pos;
+    return eliminateDupes(baseSet).sort();
+}
+
+// takes in an array, removes duplicate elements, returns array with no dupes
+function eliminateDupes(arr) {
+    return arr.filter( (itm, pos) => {
+        return arr.indexOf(itm) == pos;
     });
 
-    return symDiff.sort();
 }
 
 console.log(sym([1,2,3], [5,2,1,4]));
