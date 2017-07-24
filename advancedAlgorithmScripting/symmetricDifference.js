@@ -11,29 +11,40 @@
  */
 
 function sym(args) {
-    let arrs = [...arguments];
-    var allNums = [];
+    var arrs = [...arguments];
+    var baseSet = arrs[0];
 
-    // populate an array with every number in all arrays
-    arrs.forEach( (a) => {
-        for (let i = 0; i < a.length; i++) {
-            if (allNums.indexOf(a[i]) === -1)
-                allNums.push(a[i]);
-        }
+    for (let i = 1; i < arrs.length; i++) {
+
+        //remove duplicates in sub-array
+        let tmpArr = arrs[i].filter( (item, pos) => {
+            return arrs[i].indexOf(item) == pos;
+        });
+
+        // test for differences, update base set
+        tmpArr.forEach( (curr) => {
+            let index = baseSet.indexOf(curr);
+            if (index !== -1) {
+                baseSet.splice(index, 1);
+            } else {
+                baseSet.push(curr);
+            }
+        });
+    }
+
+     // for removing duplicates in sym diff set
+    let symDiff = baseSet.filter( (item, pos) => {
+        return baseSet.indexOf(item) == pos;
     });
-    console.log(allNums);
 
-    // test argument arrays agains full array
-
-    return allNums.reduce( function(a) {
-        for (let i = 0; i < arrs.length; i++) {
-            let temp = allNums.indexOf(arrs[i]);
-            allNums.filter( e => e === temp );
-        }
-    });
+    return symDiff.sort();
 }
 
 console.log(sym([1,2,3], [5,2,1,4]));
 // 3, 4, 5
-
 console.log(sym([1,2,3,4],[3,1,5,6]));
+// 2, 4, 5, 6
+console.log(sym([1, 2, 5], [2, 3, 5], [3, 4, 5]));
+// [1, 4, 5]
+console.log(sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]));
+// [1, 4, 5]
