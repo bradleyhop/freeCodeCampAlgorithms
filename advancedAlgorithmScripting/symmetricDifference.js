@@ -11,7 +11,9 @@
  */
 
 function sym(args) {
+    // put all arguments into an array
     var arrs = [...arguments];
+    // array to test differances against
     var baseSet = arrs[0];
 
     for (let i = 1; i < arrs.length; i++) {
@@ -35,7 +37,6 @@ function eliminateDupes(arr) {
     return arr.filter( (itm, pos) => {
         return arr.indexOf(itm) == pos;
     });
-
 }
 
 console.log(sym([1,2,3], [5,2,1,4]));
