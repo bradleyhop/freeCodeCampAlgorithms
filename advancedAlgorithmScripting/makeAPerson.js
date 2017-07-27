@@ -31,8 +31,7 @@ var Person = function(firstAndLast) {
         fullName[1] = last;
     };
     this.setFullName = function(completeName) {
-        this.setFirstName(completeName.split(' ')[0]);
-        this.setLastName(completeName.split(' ')[1]);
+        fullName = completeName.split(' ');
     };
 };
 
