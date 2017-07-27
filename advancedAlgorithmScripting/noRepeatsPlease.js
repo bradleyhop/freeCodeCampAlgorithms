@@ -11,17 +11,25 @@
 function permAlone(str) {
     let noRepeatPerm = 0;
 
-    // get array of all permutations, double letters included
+    let checkPossibleRep = str.split('').sort().join('');
+
+    // if every char is different, there will be no repeating chars in the
+    //  permutations. Thus # of permutations is n!.
+    if (!(/(.)\1+/.test(checkPossibleRep))) {
+        return factorial(str.length);
+    } else {
+    // get array of all permutations, repeats included
     let allPerms = permutator(str);
 
     // count only permutations with no repeated characters
     for (let i in allPerms) {
         if (!(/(.)\1+/.test(allPerms[i]))) {
-            noRepeatPerm += 1;
+            noRepeatPerm++;
         }
     }
 
     return noRepeatPerm;
+    }
 }
 
 // takes in a string, returns an array of strings containing all permutations
@@ -30,6 +38,7 @@ function permutator(str) {
     let inputArr = str.split('');
     let result = [];
 
+    // recursive function to construct permutations
     function permute(arr, temp) {
         temp = temp || [];
         if (arr.length === 0) {
@@ -52,6 +61,13 @@ function permutator(str) {
     return result;
 }
 
+// computates factorials recursively
+function factorial(num) {
+    if (num === 1)
+        return num;
+    return (num * factorial(num - 1));
+}
+
 
 console.log(permAlone('aab'));
 // 2
@@ -61,3 +77,5 @@ console.log(permAlone('aabb'));
 // 8
 console.log(permAlone('abcdefa'));
 // 3600
+console.log(permAlone('abcdef'));
+// 720

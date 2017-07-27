@@ -16,6 +16,7 @@ function sym(args) {
     // array to test differances against
     var baseSet = arrs[0];
 
+    // start comparing at second set
     for (let i = 1; i < arrs.length; i++) {
 
         // test for differences, update base set
