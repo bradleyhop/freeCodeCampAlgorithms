@@ -13,7 +13,6 @@
  *398600.4418 km^3s^-2.
  */
 
-
 function orbitalPeriod(arr) {
     let GM = 398600.4418;
     let earthRadius = 6367.4447;
