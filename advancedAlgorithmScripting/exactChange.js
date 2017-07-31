@@ -31,18 +31,21 @@
  */
 
 
-var cashValue = {
+const cashValue = [
     // value in pennies!
-    "ONE HUNDRED" : 10000,
-    "TWENTY"      : 2000,
-    "TEN"         : 1000,
-    "FIVE"        : 500,
-    "ONE"         : 100,
-    "QUARTER"     : 25,
-    "DIME"        : 10,
-    "NICKEL"      : 5,
-    "PENNY"       : 1
-};
+    { name : "ONE HUNDRED" , value : 10000 },
+    { name : "TWENTY"      , value : 2000 },
+    { name : "TEN"         , value : 1000 },
+    { name : "FIVE"        , value : 500 },
+    { name : "ONE"         , value : 100 },
+    { name : "QUARTER"     , value : 25 },
+    { name : "DIME"        , value : 10 },
+    { name : "NICKEL"      , value : 5 },
+    { name : "PENNY"       , value : 1 }
+];
+
+console.log(cashValue[0].name);
+
 
 function checkCashRegister(price, cash, cid) {
     // total cash value of money to return
@@ -52,44 +55,45 @@ function checkCashRegister(price, cash, cid) {
     // empty array of return change, only add item if needed
     var change = [];
 
-    for (var i = 0; i < cid.length; i++) {
-        totalCash += (cid[i][1]) * 100;
-    }
+    cid.forEach( (change) => {
+        totalCash += (change[1]) * 100;
+    });
+    console.log("total cash: " + totalCash);
+    console.log("return cash: " + returnCash);
 
-    // check first for insufficient and even funds
+    // quick and dirty check first for insufficient and even funds
     if (totalCash < returnCash) {
-        console.log(totalCash + " " + returnCash);
+        // Be Careful! This does not gaurentee insufficient funds in all cases!
+        // Still need to check if cid is divisble into the change available
         return "Insufficient Funds";
     } else if (totalCash === returnCash) {
         return "Closed";
     }
 
-/*
- *    console.log("total cash: " + totalCash + " return cash: " + returnCash);
- *
- *    while (totalCash > 0) {
- *        for (var j = 0; j < cashValue.length; j++) {
- *            while (cashValue[j] > totalCash && cid[j][1] > 0) {
- *                totalCash -= cashValue[j];
- *                change += []; // add property name here
- *                // also need to add the amount of the money value here
- *            }
- *        }
- *    }
- */
+    for (let i = (cid.length -1); i >= 0; i--) {
+        console.log(i);
 
-    // change should be an array b/c we have to give change in what is
-    //  actually in the drawer
+    }
+
+    change = [["QUARTER", 50]];
+
+    // change the pennies into cash decimal before returning
+    change.map( (denom) => {
+      denom[1] /= 100;
+    });
+
+    return change;
 
 }
 
 
-console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05],
-    ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00],
-    ["TEN",20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
+console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN",20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
 // Should return [["QUARTER", 0.50]]
 
 //console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+ //Insufficient Funds
+
+//console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 // Insufficient Funds
 
 //console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
