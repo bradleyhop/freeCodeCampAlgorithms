@@ -33,19 +33,16 @@
 
 const cashValue = [
     // value in pennies!
-    { name : "ONE HUNDRED" , value : 10000 },
-    { name : "TWENTY"      , value : 2000 },
-    { name : "TEN"         , value : 1000 },
-    { name : "FIVE"        , value : 500 },
-    { name : "ONE"         , value : 100 },
-    { name : "QUARTER"     , value : 25 },
-    { name : "DIME"        , value : 10 },
+    { name : "PENNY"       , value : 1 },
     { name : "NICKEL"      , value : 5 },
-    { name : "PENNY"       , value : 1 }
+    { name : "DIME"        , value : 10 },
+    { name : "QUARTER"     , value : 25 },
+    { name : "ONE"         , value : 100 },
+    { name : "FIVE"        , value : 500 },
+    { name : "TEN"         , value : 1000 },
+    { name : "TWENTY"      , value : 2000 },
+    { name : "ONE HUNDRED" , value : 10000 }
 ];
-
-console.log(cashValue[0].name);
-
 
 function checkCashRegister(price, cash, cid) {
     // total cash value of money to return
@@ -70,24 +67,39 @@ function checkCashRegister(price, cash, cid) {
         return "Closed";
     }
 
+    // calulate change back
     for (let i = (cid.length -1); i >= 0; i--) {
-        console.log(i);
-
+        // check and add only denominations needed
+        if (returnCash >= cashValue[i].value) {
+            // how much of a certain denomination to push to the change arrary
+            let changeCount = 0;
+            while (returnCash - cashValue[i].value >= 0) {
+                //if (cashValue[i].value * changeCount > cid[i][1] * 100) {
+                    returnCash -= cashValue[i].value;
+                    changeCount++;
+                //}
+            }
+            console.log(changeCount);
+            change.push([cashValue[i].name, (changeCount * cashValue[i].value)]);
+        }
     }
-
-    change = [["QUARTER", 50]];
 
     // change the pennies into cash decimal before returning
     change.map( (denom) => {
       denom[1] /= 100;
     });
 
-    return change;
+    // if there is still change left over, we can't break the change in the
+    //  drawer to give the proper change back
+    if (returnCash > 0) {
+        return "Insufficient Funds";
+    }
 
+    return change;
 }
 
 
-console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN",20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
+//console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN",20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
 // Should return [["QUARTER", 0.50]]
 
 //console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
@@ -99,5 +111,5 @@ console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], 
 //console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 // Closed
 
-//console.log(checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
+console.log(checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
 // Should return: [["TWENTY", 60.00], ["TEN", 20.00], ["FIVE", 15.00], ["ONE", 1.00], ["QUARTER", 0.50], ["DIME", 0.20], ["PENNY", 0.04]]
