@@ -18,19 +18,7 @@
  * and then, will move that decimal back over to get money math
  */
 
-/*
- * TODO:
- **from highest, check if bigger than returnCash (change to be given back)
- **check if highest has the funds in the demonination to give
- **if so, divide returnCash by denomination; check to see if denomination
- *    is available; reference value of demonination: addd one value to it,
- *    check against returnCash
- **substract denomination from cid
- **substract change given in denomination from returnCash
- **move on to next denomination
- */
-
-
+// gloabl array of objects holding monetary names with their value in pennies
 const cashValue = [
     // value in pennies!
     { name : "PENNY"       , value : 1 },
@@ -96,7 +84,6 @@ function checkCashRegister(price, cash, cid) {
 
     return change;
 }
-
 
 console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN",20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
 // Should return [["QUARTER", 0.50]]
