@@ -52,9 +52,11 @@ function checkCashRegister(price, cash, cid) {
     // empty array of return change, only add item if needed
     var change = [];
 
+    // change money float to int to avoid rounding errors
     cid.forEach( (change) => {
         totalCash += (change[1]) * 100;
     });
+
     console.log("total cash: " + totalCash);
     console.log("return cash: " + returnCash);
 
@@ -72,14 +74,20 @@ function checkCashRegister(price, cash, cid) {
         // check and add only denominations needed
         if (returnCash >= cashValue[i].value) {
             // how much of a certain denomination to push to the change arrary
-            let changeCount = 0;
-            while (returnCash - cashValue[i].value >= 0) {
-                //if (cashValue[i].value * changeCount > cid[i][1] * 100) {
-                    returnCash -= cashValue[i].value;
+            let changeCount = 1;
+            do {
+                // we already check if this denom was available, so let's use
+                //  one first!
+                returnCash -= cashValue[i].value;
+                cid[i][1] -= cashValue[i].value;
+                // this may evaluate false only through the second run of this
+                //  loop. Check to see if there's enough of a denomination
+                //  available.
+                if (cid[i][1] > 0) {
                     changeCount++;
-                //}
-            }
-            console.log(changeCount);
+                }
+            } while (returnCash - cashValue[i].value >= 0);
+            //console.log(changeCount);
             change.push([cashValue[i].name, (changeCount * cashValue[i].value)]);
         }
     }
