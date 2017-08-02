@@ -18,19 +18,7 @@
  * and then, will move that decimal back over to get money math
  */
 
-/*
- * TODO:
- **from highest, check if bigger than returnCash (change to be given back)
- **check if highest has the funds in the demonination to give
- **if so, divide returnCash by denomination; check to see if denomination
- *    is available; reference value of demonination: addd one value to it,
- *    check against returnCash
- **substract denomination from cid
- **substract change given in denomination from returnCash
- **move on to next denomination
- */
-
-
+// gloabl array of objects holding monetary names with their value in pennies
 const cashValue = [
     // value in pennies!
     { name : "PENNY"       , value : 1 },
@@ -57,9 +45,6 @@ function checkCashRegister(price, cash, cid) {
         totalCash += (change[1]) * 100;
     });
 
-    console.log("total cash: " + totalCash);
-    console.log("return cash: " + returnCash);
-
     // quick and dirty check first for insufficient and even funds
     if (totalCash < returnCash) {
         // Be Careful! This does not gaurentee insufficient funds in all cases!
@@ -70,24 +55,18 @@ function checkCashRegister(price, cash, cid) {
     }
 
     // calulate change back
-    for (let i = (cid.length -1); i >= 0; i--) {
+    for (let i = (cid.length - 1); i >= 0; i--) {
         // check and add only denominations needed
         if (returnCash >= cashValue[i].value) {
             // how much of a certain denomination to push to the change arrary
-            let changeCount = 1;
+            let changeCount = 0;
+            // to keep track of value of available cash in drawer in pennies
+            let denomValue = cid[i][1] * 100;
             do {
-                // we already check if this denom was available, so let's use
-                //  one first!
+                denomValue -= cashValue[i].value;
                 returnCash -= cashValue[i].value;
-                cid[i][1] -= cashValue[i].value;
-                // this may evaluate false only through the second run of this
-                //  loop. Check to see if there's enough of a denomination
-                //  available.
-                if (cid[i][1] > 0) {
-                    changeCount++;
-                }
-            } while (returnCash - cashValue[i].value >= 0);
-            //console.log(changeCount);
+                changeCount++;
+            } while (returnCash >= cashValue[i].value && denomValue > 0);
             change.push([cashValue[i].name, (changeCount * cashValue[i].value)]);
         }
     }
@@ -106,17 +85,16 @@ function checkCashRegister(price, cash, cid) {
     return change;
 }
 
-
-//console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN",20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
+console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN",20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
 // Should return [["QUARTER", 0.50]]
 
-//console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
  //Insufficient Funds
 
-//console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 // Insufficient Funds
 
-//console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 // Closed
 
 console.log(checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
