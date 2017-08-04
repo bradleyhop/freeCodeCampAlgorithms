@@ -41,8 +41,10 @@ function checkCashRegister(price, cash, cid) {
     var change = [];
 
     // change money float to int to avoid rounding errors
+    // also change money value in cid to pennies
     cid.forEach( (change) => {
         totalCash += (change[1]) * 100;
+        change[1] *= 100;
     });
 
     // quick and dirty check first for insufficient and even funds
@@ -56,31 +58,33 @@ function checkCashRegister(price, cash, cid) {
 
     // calulate change back
     for (let i = (cid.length - 1); i >= 0; i--) {
+
         // check and add only denominations needed
         if (returnCash >= cashValue[i].value) {
+
             // how much of a certain denomination to push to the change arrary
             let changeCount = 0;
-            // to keep track of value of available cash in drawer in pennies
-            let denomValue = cid[i][1] * 100;
+
             do {
-                denomValue -= cashValue[i].value;
+                cid[i][1] -= cashValue[i].value;
                 returnCash -= cashValue[i].value;
                 changeCount++;
-            } while (returnCash >= cashValue[i].value && denomValue > 0);
+            } while (returnCash >= cashValue[i].value && cid[i][1] > 0);
+
             change.push([cashValue[i].name, (changeCount * cashValue[i].value)]);
         }
     }
-
-    // change the pennies into cash decimal before returning
-    change.map( (denom) => {
-      denom[1] /= 100;
-    });
 
     // if there is still change left over, we can't break the change in the
     //  drawer to give the proper change back
     if (returnCash > 0) {
         return "Insufficient Funds";
     }
+
+    // change the pennies into cash decimal before returning
+    change.map( (denom) => {
+      denom[1] /= 100;
+    });
 
     return change;
 }

@@ -17,14 +17,14 @@ function orbitalPeriod(arr) {
     let GM = 398600.4418;
     let earthRadius = 6367.4447;
 
-    for (let i in arr) {
+    arr.map( (satellite) => {
         // equation for oribital period via wikipedia
-        let orbitalPeriod =
+        let orbPeriod =
             (2 * Math.PI) *
-            (Math.sqrt(Math.pow(earthRadius + arr[i].avgAlt, 3) / GM));
-        arr[i].orbitalPeriod = Math.round(orbitalPeriod);
-        delete arr[i].avgAlt;
-    }
+            (Math.sqrt(Math.pow(earthRadius + satellite.avgAlt, 3) / GM));
+        satellite.orbitalPeriod = Math.round(orbPeriod);
+        delete satellite.avgAlt;
+    });
 
     return arr;
 }
