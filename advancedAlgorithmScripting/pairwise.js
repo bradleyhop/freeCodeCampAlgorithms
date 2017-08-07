@@ -20,22 +20,24 @@
  */
 
 function pairwise(arr, arg) {
-    // store number sets whose sum results in arg
-    let pairArr = [];
     // leave original arr as is
     let copyArr = arr;
+    // store number sets whose sum results in arg
+    let pairArr = [];
 
+    // forEach( value, index )
     copyArr.forEach( (base, bI) => {
         copyArr.forEach( (add, aI) => {
             if ( base + add === arg && bI !== aI ) {
-                pairArr.push(base);
-                base = add = undefined;
+                if (pairArr.indexOf(bI) < 0 && pairArr.indexOf(aI) < 0) {
+                    pairArr.push(bI, aI);
+                }
             }
         });
     });
 
-    return pairArr.reduce( (accum, current, i) => {
-            return accum + arr.indexOf(current, i);
+    return pairArr.reduce( (accum, current) => {
+            return accum + current;
     }, 0);
 }
 
@@ -45,3 +47,5 @@ console.log(pairwise([1, 3, 2, 4], 4));
 // 1
 console.log(pairwise([1, 1, 1], 2));
 // 1
+console.log(pairwise([0, 0, 0, 0, 1, 1], 1));
+// 10

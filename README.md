@@ -20,6 +20,4 @@ console.log(algoScript("test"));
 // not all test cases used by freeCodeCamp are in the files; just enough to get the gist
 ```
 
-As of 3/7/17, I have not completed all of freeCodeCamp's Javascript Algorithm Scripting challenges. I will continue to update this repro as I solve more problems.
-
-Update: As of 3/26/17, I have finished all of the Basic and Intermediate Algorithm Scripting.
+**UPDATE**: As of August 7, 2017, I have finished all of the Algrorithm Scripting challenges.
