@@ -29,13 +29,13 @@ function pairwise(arr, arg) {
         copyArr.forEach( (add, aI) => {
             if ( base + add === arg && bI !== aI ) {
                 pairArr.push(base);
+                base = add = undefined;
             }
         });
     });
 
-
     return pairArr.reduce( (accum, current, i) => {
-        return accum + arr.indexOf(current, i);
+            return accum + arr.indexOf(current, i);
     }, 0);
 }
 
