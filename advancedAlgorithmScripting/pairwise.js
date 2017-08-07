@@ -19,23 +19,29 @@
  * reduce?
  */
 
-/*
- * NOT FINISHED!
- */
-
 function pairwise(arr, arg) {
-    let sum = 0;
+    // store number sets whose sum results in arg
+    let pairArr = [];
+    // leave original arr as is
+    let copyArr = arr;
 
-    let testArr = arr;
+    copyArr.forEach( (base, bI) => {
+        copyArr.forEach( (add, aI) => {
+            if ( base + add === arg && bI !== aI ) {
+                pairArr.push(base);
+            }
+        });
+    });
 
-    testArr.reduce( (a, b) => {
-        if (a + b === arg) {
-            return a;
-        }
-    } );
 
-    console.log(testArr);
-    return sum;
+    return pairArr.reduce( (accum, current, i) => {
+        return accum + arr.indexOf(current, i);
+    }, 0);
 }
 
 console.log(pairwise([1,4,2,3,0,5], 7));
+// 11
+console.log(pairwise([1, 3, 2, 4], 4));
+// 1
+console.log(pairwise([1, 1, 1], 2));
+// 1
