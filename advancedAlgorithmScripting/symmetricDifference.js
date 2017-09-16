@@ -10,7 +10,7 @@
  *not both (C △ D = {1, 4} △ {2, 3} = {1, 2, 3, 4}).
  */
 
-function sym(args) {
+function sym() {
     // put all arguments into an array
     var arrs = [...arguments];
     // array to test differances against
