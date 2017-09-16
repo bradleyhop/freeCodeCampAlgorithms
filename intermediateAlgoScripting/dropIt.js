@@ -11,7 +11,7 @@
 function dropElements(arr, func) {
     var initArrLength = arr.length; // must remember initial length
 
-    for (i = 0; i < initArrLength; i++) {
+    for (let i = 0; i < initArrLength; i++) {
         // we always want to look at the first element, esp b/c of shifting
         if (func(arr[0])) {
             return arr.slice(0);

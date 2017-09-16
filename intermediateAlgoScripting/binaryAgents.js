@@ -10,11 +10,11 @@ function binaryAgent(str) {
     var newArr = [];
     var newStr = '';
 
-    for (var i = 0; i < binArr.length; i++) {
+    for (let i = 0; i < binArr.length; i++) {
         newArr.push(binToDec(binArr[i]));
     }
 
-    for (var j = 0; j < newArr.length; j++) {
+    for (let j = 0; j < newArr.length; j++) {
         newStr += String.fromCharCode(newArr[j]);
     }
 
@@ -25,7 +25,7 @@ function binToDec(bin) {
     var numb = bin.split("");
     var sum = 0;
 
-    for (i = 0; i < numb.length; i++) {
+    for (let i = 0; i < numb.length; i++) {
         sum += (numb[i] * Math.pow(2, numb.length - i - 1));
     }
 
