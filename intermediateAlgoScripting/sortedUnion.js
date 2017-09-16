@@ -11,7 +11,7 @@
  *Check the assertion tests for examples.
  */
 
-function uniteUnique(arr) {
+function uniteUnique() {
     var flatten = function(arr) {
         return arr.reduce(function(acc, val) {
             return acc.concat(val);
@@ -22,7 +22,7 @@ function uniteUnique(arr) {
 
     var newArr = [];
 
-    for (var i in flatArr) {
+    for (let i in flatArr) {
         if (!(flatArr[i] in newArr ))
             newArr.push(flatArr[i]);
     }
