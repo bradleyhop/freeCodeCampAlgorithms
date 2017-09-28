@@ -8,7 +8,7 @@
 function binaryAgent(str) {
     var binArr = str.split(" ");
     var newArr = [];
-    var newStr = '';
+    var newStr = "";
 
     for (let i = 0; i < binArr.length; i++) {
         newArr.push(binToDec(binArr[i]));
