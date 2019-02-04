@@ -1,4 +1,5 @@
 # freeCodeCampAlgorithms
+[**View Certification**](https://www.freecodecamp.org/certification/bradleyhop/javascript-algorithms-and-data-structures)
 
 Answers to fCC.com's Javascript algorithm scripting problems. Each difficulty level problem sets are found in separate, appropreiately named directories.
 
@@ -20,4 +21,4 @@ console.log(algoScript("test"));
 // not all test cases used by freeCodeCamp are in the files; just enough to get the gist
 ```
 
-**UPDATE**: As of August 7, 2017, I have finished all of the Algrorithm Scripting challenges.
+**UPDATE**: As of Feb 1, 2019, I have claimed freeCodeCamp's Javascript Algorithms and Data Structures.
